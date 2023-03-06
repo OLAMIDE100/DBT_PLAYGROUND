@@ -1,6 +1,0 @@
-
-version: 2
-
-models:
-    - name: customers
-      description: "A starter dbt model"
