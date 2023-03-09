@@ -31,9 +31,32 @@ clean-targets:         # directories to be removed by `dbt clean`
 # In this example config, we tell dbt to build all models in the example/ directory
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
+
+vars:
+    start_date: "2021-01-01"
+    execution_date: "notset"
+    dataset_udf: "_utils"
+
+on-run-start:
+    - "{{ create_udfs() }}"
+
 models:
   mide_project:
-    stg:
-    # Applies to all files under models/example/
-      materialized: view
-  materialized: table  
+    staging:
+      google_analytics:
+        materialized: view
+        +dataset: staging
+        +tags:
+            - "staging"
+            - "daily"
+
+    mart:
+      core:
+        materialized: table
+        +dataset: core
+        +tags:
+           - "core"
+           - "daily"
+
+
+           
