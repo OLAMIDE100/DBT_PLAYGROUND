@@ -58,5 +58,11 @@ models:
            - "core"
            - "daily"
 
+      marketing:
+        materialized: table
+        +dataset: marketing
+        +tags:
+           - "marketing"
+           - "daily"
 
            
